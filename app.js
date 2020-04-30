@@ -1,8 +1,11 @@
-var inquirer = require('inquirer');
+const inquirer = require('inquirer');
+const Intern = require('./lib/Intern');
+const Engineer = require('./lib/Engineer');
+const Manager = require('./lib/Manager');
 
-
-let str;
-inquirer
+function managerInput() {
+  return new Promise(resolve => {
+    inquirer
   .prompt([
       {
         name: 'name',
@@ -24,10 +27,9 @@ inquirer
         message: 'Number of employees',
         default: '3'
       }
-    /* Pass your questions in here */
   ])
   .then(answers => {
-      console.info('Name is:', answers)
+      resolve(answers)
     // Use user feedback for... whatever!!
   })
   .catch(error => {
@@ -39,3 +41,14 @@ inquirer
       // Something else when wrong
     }
   });
+  })
+}
+
+
+
+ async function main() {
+  let managerInputs = await managerInput();
+  console.log(`Hello you absolute ${managerInputs.name}`)
+}
+
+main();
