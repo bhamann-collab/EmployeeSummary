@@ -1,4 +1,4 @@
-function getMainTemplate(managerObj) {
+function getMainTemplate(occupationObject) {
     let mainTemplate = `<!DOCTYPE html>
 <html lang="en">
 
@@ -24,7 +24,7 @@ function getMainTemplate(managerObj) {
     <div class="container">
         <div class="row">
             <div class="team-area col-12 d-flex justify-content-center">
-                ${managerObj}
+                ${occupationObject}
             </div>
         </div>
     </div>

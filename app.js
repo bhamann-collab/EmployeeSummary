@@ -6,7 +6,8 @@ const Manager = require('./lib/Manager');
 
 const getManagerTemplate = require('./templates/manager-template')
 const getMainTemplate = require('./templates/main-template')
-
+const getEngineerTemplate = require('./templates/engineer-template')
+const getInternTemplate = require('./templates/intern-template')
 
 
 
@@ -164,12 +165,25 @@ function whichEmployee(number) {
   })
 }
 
+function addEngineer(newMember, currentMembers) {
+  newHtml = getEngineerTemplate(newMember)
+  let theSquad = `${currentMembers} \n ${newHtml}`
 
+  return theSquad;
+}
+
+function addIntern(newMember, currentMembers) {
+  newHtml = getInternTemplate(newMember)
+  let theSquad = `${currentMembers} \n ${newHtml}`
+
+  return theSquad;
+}
 
  async function main() {
   let managerInputs = await managerInput();
   let engineerArray = [];
   let internArray = [];
+  let htmlTeam = ``
 
   let newManager = new Manager(managerInputs.name, managerInputs.id, managerInputs.email, managerInputs.office)
   console.log(newManager.getOfficeNumber());
@@ -187,12 +201,19 @@ function whichEmployee(number) {
       internArray.push(newIntern)
     }
   }
-  console.log(engineerArray);
-  console.log(internArray);
 
-  let managerTemplate = getManagerTemplate(newManager)
+  for (var i = 0; i < engineerArray.length; i++) {
+    htmlTeam = addEngineer(engineerArray[i], htmlTeam)
+  }
 
-  fs.writeFile('test.html', getMainTemplate(managerTemplate), (error) => {console.log(error)})
+  for (var i = 0; i < internArray.length; i++) {
+    htmlTeam = addIntern(internArray[i], htmlTeam)
+  }
+
+  htmlTeam = `${getManagerTemplate(newManager)} \n ${htmlTeam}`
+  htmlTeam = getMainTemplate(htmlTeam)
+
+  fs.writeFile('test.html', htmlTeam, (error) => {console.log(error)})
 }
 
 main();
