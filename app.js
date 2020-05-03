@@ -1,7 +1,14 @@
 const inquirer = require('inquirer');
+var fs  = require('fs');
 const Intern = require('./lib/Intern');
 const Engineer = require('./lib/Engineer');
 const Manager = require('./lib/Manager');
+
+const getManagerTemplate = require('./templates/manager-template')
+const getMainTemplate = require('./templates/main-template')
+
+
+
 
 function managerInput() {
   return new Promise(resolve => {
@@ -182,6 +189,10 @@ function whichEmployee(number) {
   }
   console.log(engineerArray);
   console.log(internArray);
+
+  let managerTemplate = getManagerTemplate(newManager)
+
+  fs.writeFile('test.html', getMainTemplate(managerTemplate), (error) => {console.log(error)})
 }
 
 main();
