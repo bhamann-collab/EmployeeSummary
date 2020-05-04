@@ -21,4 +21,4 @@ bhamann-collab
 https://github.com/bhamann-collab
 
 ## Example
-![image](./output/Example.png)
+![Alt text](/output/Example.png?rraw=true)
