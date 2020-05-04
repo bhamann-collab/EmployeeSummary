@@ -4,6 +4,7 @@ const Intern = require('./lib/Intern');
 const Engineer = require('./lib/Engineer');
 const Manager = require('./lib/Manager');
 
+//Importing functions to obtain HTML templates
 const getManagerTemplate = require('./templates/manager-template')
 const getMainTemplate = require('./templates/main-template')
 const getEngineerTemplate = require('./templates/engineer-template')
@@ -17,42 +18,28 @@ function managerInput() {
   .prompt([
       {
         name: 'name',
-        message: 'Name of manager',
-        default: 'Brock'
+        message: 'Name of manager'
       },
       {
         name: 'id',
-        message: 'ID of manager',
-        default: '1234'
+        message: 'ID of manager'
       },
       {
         name: 'email',
-        message: 'email of manager',
-        default: 'example@example.com'
+        message: 'email of manager'
       },
       {
         name: 'office',
-        message: 'office number of manager',
-        default: '789'
+        message: 'office number of manager'
       },
       {
         name: 'No',
-        message: 'Number of employees',
-        default: '3'
+        message: 'Number of employees'
       }
   ])
   .then(answers => {
       resolve(answers)
-  })
-  .catch(error => {
-    if(error.isTtyError) {
-        
-      // Prompt couldn't be rendered in the current environment
-    } else {
-        
-      // Something else when wrong
-    }
-  });
+    })
   })
 }
 
@@ -62,37 +49,24 @@ function engineerInput() {
   .prompt([
       {
         name: 'name',
-        message: 'Name of engineer',
-        default: 'Brock'
+        message: 'Name of engineer'
       },
       {
         name: 'id',
-        message: 'ID of engineer',
-        default: '1234'
+        message: 'ID of engineer'
       },
       {
         name: 'email',
-        message: 'email of engineer',
-        default: 'example@example.com'
+        message: 'email of engineer'
       },
       {
         name: 'github',
-        message: 'github username of engineer',
-        default: 'gitty'
+        message: 'github username of engineer'
       }
   ])
   .then(answers => {
       resolve(answers)
-  })
-  .catch(error => {
-    if(error.isTtyError) {
-        
-      // Prompt couldn't be rendered in the current environment
-    } else {
-        
-      // Something else when wrong
-    }
-  });
+    })
   })
 }
 
@@ -102,37 +76,24 @@ function internInput() {
   .prompt([
       {
         name: 'name',
-        message: 'Name of intern',
-        default: 'Brock'
+        message: 'Name of intern'
       },
       {
         name: 'id',
-        message: 'ID of intern',
-        default: '1234'
+        message: 'ID of intern'
       },
       {
         name: 'email',
-        message: 'email of intern',
-        default: 'example@example.com'
+        message: 'email of intern'
       },
       {
         name: 'school',
-        message: 'school name of intern',
-        default: 'gitty'
+        message: 'school name of intern'
       }
   ])
   .then(answers => {
       resolve(answers)
-  })
-  .catch(error => {
-    if(error.isTtyError) {
-        
-      // Prompt couldn't be rendered in the current environment
-    } else {
-        
-      // Something else when wrong
-    }
-  });
+    })
   })
 }
 
@@ -152,19 +113,11 @@ function whichEmployee(number) {
   ])
   .then(answers => {
       resolve(answers)
-  })
-  .catch(error => {
-    if(error.isTtyError) {
-        
-      // Prompt couldn't be rendered in the current environment
-    } else {
-        
-      // Something else when wrong
-    }
-  });
+    })
   })
 }
 
+//Adding an engineer template to member list template
 function addEngineer(newMember, currentMembers) {
   newHtml = getEngineerTemplate(newMember)
   let theSquad = `${currentMembers} \n ${newHtml}`
@@ -172,12 +125,14 @@ function addEngineer(newMember, currentMembers) {
   return theSquad;
 }
 
+//Adding an intern template to member list template
 function addIntern(newMember, currentMembers) {
   newHtml = getInternTemplate(newMember)
   let theSquad = `${currentMembers} \n ${newHtml}`
 
   return theSquad;
 }
+
 
  async function main() {
   let managerInputs = await managerInput();
@@ -186,11 +141,12 @@ function addIntern(newMember, currentMembers) {
   let htmlTeam = ``
 
   let newManager = new Manager(managerInputs.name, managerInputs.id, managerInputs.email, managerInputs.office)
-  console.log(newManager.getOfficeNumber());
   
+  //The number of employees that the manager selected will be the number of employees templates that need to be created
   for(let i = 0; i < managerInputs.No; i++) {
     let employeeType = await whichEmployee(i+1);
     
+    //Creating Engineer and Intern Objects
     if(employeeType.employee === 'Engineer') {
       let engineerInputs = await engineerInput();
       let newEngineer = new Engineer(engineerInputs.name, engineerInputs.id, engineerInputs.email, engineerInputs.github)
@@ -202,18 +158,23 @@ function addIntern(newMember, currentMembers) {
     }
   }
 
+  //Populating engineer HTML templates first  
   for (var i = 0; i < engineerArray.length; i++) {
     htmlTeam = addEngineer(engineerArray[i], htmlTeam)
   }
 
+   //Populating intern HTML templates second
   for (var i = 0; i < internArray.length; i++) {
     htmlTeam = addIntern(internArray[i], htmlTeam)
   }
 
+  //Adding the manager HTML template on the top of the list
   htmlTeam = `${getManagerTemplate(newManager)} \n ${htmlTeam}`
   htmlTeam = getMainTemplate(htmlTeam)
 
-  fs.writeFile('test.html', htmlTeam, (error) => {console.log(error)})
+
+  //Once completed, the file is located in the output directory
+  fs.writeFile('./output/index.html', htmlTeam, (error) => {console.log(error)})
 }
 
 main();

@@ -9,7 +9,7 @@ function getManagerTemplate(managerObj) {
     <ul class="list-group">
         <li class="list-group-item">ID: ${managerObj.id}</li>
         <li class="list-group-item">Email: <a href="mailto:${managerObj.email}">${managerObj.email}</a></li>
-        <li class="list-group-item">Office number: ${managerObj.officeNum}</li>
+        <li class="list-group-item">Office number: ${managerObj.officeNumber}</li>
     </ul>
 </div>
 </div>`;
