@@ -14,8 +14,11 @@ This project requires node.js to run as well as packages: inquirer and fs
 Clone or fort this repository onto your local workspace
 
 ### Executing program
-Once you're in the root folder, enter 'node app.js' in a command line
+Once you're in the root folder, enter 'node app.js' in a command line. Once when the program finishes, the output index.html file will be placed under: "./output"
 
 ## Authors
 bhamann-collab
 https://github.com/bhamann-collab
+
+## Example
+![image](./output/Example.png)
