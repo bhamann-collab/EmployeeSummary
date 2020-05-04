@@ -11,7 +11,7 @@ Once you're in the root folder, enter 'node app.js' in a command line
 This project requires node.js to run as well as packages: inquirer and fs
 
 ### Installing
-Clone or fort this repository onto your local workspace
+Clone or fork this repository onto your local workspace. Once you have the repository on your local workspace, execute the command: 'npm install inquirer'.
 
 ### Executing program
 Once you're in the root folder, enter 'node app.js' in a command line. Once when the program finishes, the output index.html file will be placed under: "./output"
